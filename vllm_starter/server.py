@@ -25,8 +25,23 @@ def main():
     # Start the server
     print(f"Starting vLLM server with model: {model}")
 
+    # add all properties in settings to the command arguments
+    args = []
+    for key, value in settings.items():
+        if key not in ["port", "host", "model"]:
+            if isinstance(value, bool):
+                if value:
+                    args.append(f"--{key}")
+            elif isinstance(value, list):
+                args.append(f"--{key} {" ".join(value)}")
+            else:
+                args.append(f"--{key} {value}")
+    # add config path to args
+    args = " ".join(args)
+    print(f"Server arguments: {args}")
+
     # run shell command, parse args to `vllm serve` comman
-    cmd = f"vllm serve {model} --config {config_path} --port {port} --host {host}"
+    cmd = f"vllm serve {model} --port {port} --host {host} {args}"
 
     print(f"Command: {cmd}")
 

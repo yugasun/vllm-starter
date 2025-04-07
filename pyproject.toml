@@ -5,7 +5,7 @@ description = "A starter template for VLLM"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "dynaconf>=3.2.10",
+    "pyyaml>=6.0.2",
     "setuptools>=78.1.0",
     "torch>=2.6.0",
     "torchaudio>=2.6.0",

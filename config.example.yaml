@@ -45,9 +45,8 @@ served-model-name:
 # GPU Memory Utilization
 # The maximum GPU memory utilization for the model
 gpu-memory-utilization: 0.8
-# Extra arguments for vllm serve command
-# Extra arguments for vllm serve command
+
+# Extra arguments for vLLM serve command
 # Refer to: https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#cli-reference
-extra-args:
-  # "--reasoning-parser deepseek_r1", 
-  # "--uvicorn-log-level debug"
+# reasoning-parser: deepseek_r1
+# uvicorn-log-level: debug

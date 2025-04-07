@@ -22,6 +22,8 @@ Install Nvidia Fabric Manager and the driver using the following command:
 ```bash
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/nvidia-fabricmanager-550_550.54.14-1_amd64.deb
 sudo dpkg -i nvidia-fabricmanager-550_550.54.14-1_amd64.deb
+sudo systemctl enable nvidia-fabricmanager
+sudo systemctl start nvidia-fabricmanager
 ```
 
 ## Installation
@@ -40,6 +42,14 @@ make install
 ```bash
 make run
 ```
+
+## Development
+
+```bash
+make dev
+```
+
+This will start a development server.
 
 ## License
 
