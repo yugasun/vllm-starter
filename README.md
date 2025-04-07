@@ -53,4 +53,4 @@ This will start a development server.
 
 ## License
 
-MIT License
+[Apache License 2.0](./LICENSE)
