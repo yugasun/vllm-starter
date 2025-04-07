@@ -1,0 +1,53 @@
+
+# server configuration
+# The API key to use for the server
+# api_key= ""
+
+# The host and port to bind the server to
+host: "0.0.0.0"
+port: 9090
+
+# Path to your model
+model: "path to your model"
+
+# quantization method: awq, gguf, gptq, etc.
+quantization: "awq"
+
+# Tensor parallelism
+# The number of GPUs to use for tensor parallelism
+tensor-parallel-size: 1
+
+# Automatic Function Calling
+# To enable this feature 
+enable-auto-tool-choice: true
+# select the tool parser to use, options: hermes, llama3_json, mistral
+tool-call-parser: "hermes"
+
+# The model names to use for the severed models
+served-model-name:
+  # OpenAI models
+  - "o1-mini"
+  - "gpt-4"
+  - "gpt-4o"
+  - "gpt-4o-mini"
+  - "gpt-3.5-turbo"
+  # Qwen models
+  - "qwen-max"
+  - "qwen-plus"
+  # Deepseek models
+  - "deepseed-r1"
+  - "deepseed-v3"
+  # Additional models for your use case
+  # ...
+
+
+# GPU Memory Utilization
+# GPU Memory Utilization
+# The maximum GPU memory utilization for the model
+gpu-memory-utilization: 0.8
+# Extra arguments for vllm serve command
+# Extra arguments for vllm serve command
+# Refer to: https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#cli-reference
+extra-args:
+  # "--reasoning-parser deepseek_r1", 
+  # "--uvicorn-log-level debug"
