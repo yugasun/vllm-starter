@@ -51,6 +51,35 @@ make dev
 
 This will start a development server.
 
+## Specify the CUDA available devices
+You can specify the CUDA devices available to the vLLM server by setting the `CUDA_VISIBLE_DEVICES` environment variable. For example, to make only GPU 0 and GPU 1 available, you can run:
+
+```bash
+export CUDA_VISIBLE_DEVICES=0,1
+```
+
+This will limit the vLLM server to use only GPU 0 and GPU 1. You can also set this variable in your `config.yaml` file under the `cuda_visible_devices` key.
+
+## Use ModelScope models
+
+The vLLM use HuggingFace models by default. To use [ModelScope](https://www.modelscope.cn/) models, you need to set environment variable `VLLM_USE_MODELSCOPE` to `True`.
+
+```bash
+export VLLM_USE_MODELSCOPE=True
+```
+
+Then, you can use ModelScope models in your vLLM server. For example, to use the `llama-2-7b-chat` model from ModelScope, you can run:
+
+```bash
+from vllm import LLM
+
+llm = LLM(model="Qwen1.5-0.5B-Chat", trust_remote_code=True)
+
+# For generative models (task=generate) only
+output = llm.generate("Hello, my name is")
+print(output)
+```
+
 ## License
 
 [Apache License 2.0](./LICENSE)
