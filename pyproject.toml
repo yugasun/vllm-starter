@@ -1,7 +1,7 @@
 [project]
 name = "vllm-starter"
 version = "0.1.0"
-description = "A starter template for VLLM"
+description = "A starter template for vLLM server for LLM inference."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

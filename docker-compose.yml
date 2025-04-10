@@ -1,0 +1,38 @@
+name: vllm-starter
+
+x-vllm-common: &common
+  build:
+    context: .
+    dockerfile: Dockerfile
+  # restart: unless-stopped
+  image: vllm:latest
+  environment:
+    VLLM_USE_MODELSCOPE: True
+    HF_ENDPOINT: https://hf-mirror.com
+    TZ: "Asia/Shanghai"
+    SERVED_MODEL_NAME: "gpt4 gpt4-o o1-mini o3-mini qwen-max qwen-plus"
+  volumes:
+    - /opt/models:/models:rw # Please modify this to the actual model directory.
+
+services:
+  vllm:
+    <<: *common
+    command:
+      [
+        "--model",
+        "/models/Qwen2.5-0.5B-Instruct",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "5000",
+        "--tensor-parallel-size",
+        "2",
+        "--trust-remote-code",
+      ]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 2
+              capabilities: [gpu]

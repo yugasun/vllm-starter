@@ -1,6 +1,6 @@
 # vLLM Starter
 
-Use this template to kickstart your vLLM project.
+Use this template to kickstart your [vLLM](https://github.com/vllm-project/vllm) project.
 
 
 ## Prerequisites
@@ -50,6 +50,20 @@ make dev
 ```
 
 This will start a development server.
+
+## Run by Docker
+
+You can also run the vLLM server using Docker. First, build the Docker image:
+
+```bash
+docker compose build
+```
+
+Then, run the Docker container:
+
+```bash
+docker compose up -d
+```
 
 ## Specify the CUDA available devices
 You can specify the CUDA devices available to the vLLM server by setting the `CUDA_VISIBLE_DEVICES` environment variable. For example, to make only GPU 0 and GPU 1 available, you can run:
