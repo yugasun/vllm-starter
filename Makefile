@@ -42,3 +42,10 @@ stop:
 log:
 	@echo "Checking VLLM server logs..."
 	@tail -f run.log
+
+
+test:
+	@echo "Running tests..."
+	@uv run -m vllm_starter.test
+	@echo "Tests completed."
+	@echo "To check the logs, run: tail -f run.log"
