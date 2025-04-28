@@ -34,10 +34,9 @@ stop:
 	if [ -z "$$pid" ]; then \
 		echo "VLLM server is not running."; \
 	else \
-		pkill -TERM -P $$pid && \
+		pkill -TERM -P $$pid || true && \
 		echo "VLLM server stopped."; \
 	fi
-	@echo "VLLM server stopped."
 
 log:
 	@echo "Checking VLLM server logs..."
