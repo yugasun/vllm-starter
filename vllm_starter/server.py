@@ -1,16 +1,21 @@
 import os
 from vllm_starter.config import settings, config_path
 import torch
+from vllm_starter.logger import setup_logger
+import subprocess
 
-print("Checking CUDA availability...")
-print("CUDA device count:", torch.cuda.device_count())
+logger = setup_logger()
+
+
+logger.info("Checking CUDA availability...")
+logger.info("CUDA device count:", torch.cuda.device_count())
 
 is_cuda_available = torch.cuda.is_available()
 
 if is_cuda_available:
-    print("CUDA device name:", torch.cuda.get_device_name(0))
+    logger.info("CUDA device name:", torch.cuda.get_device_name(0))
 else:
-    print("CUDA is not available. Please check your installation.")
+    logger.info("CUDA is not available. Please check your installation.")
     raise RuntimeError("CUDA is not available. Please check your installation.")
 
 # Reset CUDA before starting server
@@ -23,7 +28,7 @@ def main():
     model = settings.get("model", "facebook/opt-125m")
 
     # Start the server
-    print(f"Starting vLLM server with model: {model}")
+    logger.info(f"Starting vLLM server with model: {model}")
 
     # add all properties in settings to the command arguments
     args = []
@@ -38,14 +43,29 @@ def main():
                 args.append(f"--{key} {value}")
     # add config path to args
     args = " ".join(args)
-    print(f"Server arguments: {args}")
+    logger.info(f"Server arguments: {args}")
 
     # run shell command, parse args to `vllm serve` comman
     cmd = f"vllm serve {model} --port {port} --host {host} {args}"
 
-    print(f"Command: {cmd}")
+    logger.info(f"Command: {cmd}")
 
-    os.system(cmd)
+    process = subprocess.Popen(
+        cmd,
+        shell=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        universal_newlines=True,
+        bufsize=1,
+    )
+
+    for line in process.stdout:
+        logger.info(line.rstrip())
+
+    process.stdout.close()
+    return_code = process.wait()
+    if return_code != 0:
+        logger.error(f"Server exited with code {return_code}")
 
 
 def run():

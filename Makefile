@@ -1,5 +1,7 @@
 .PHONY: all check-cuda install run
 
+run_cmd = "uv run -m vllm_starter.server"
+
 # Verify CUDA is available
 check-cuda:
 	@echo "Checking CUDA availability..."
@@ -9,34 +11,26 @@ install:
 	uv sync
 
 dev:
-	@uv run -m vllm_starter.server
+	@sh -c ${run_cmd}
 
 
 run:
-	@uv run -m vllm_starter.server > run.log 2>&1 &
+	@nohup sh -c ${run_cmd} > /dev/null 2>&1 &
+	@echo $$(ps -ef | grep "${run_cmd}" | grep -v grep | awk '{print $$2}') > run.pid
 	@echo "VLLM server started. Check run.log for details."
-	# @echo "To stop the server, run: make stop"
+	@echo "To stop the server, run: make stop"
 
 pid:
 	@echo "Getting VLLM server PID..."
-	@pid=$$(pgrep -f "uv run -m vllm_starter.server") && \
-	if [ -z "$$pid" ]; then \
-		echo "VLLM server is not running."; \
-	else \
-		echo "VLLM server PID: $$pid"; \
-	fi
+	@echo $$(ps -ef | grep "${run_cmd}" | grep -v grep | awk '{print $$2}') > run.pid
+	@echo "VLLM server PID saved to run.pid."
 	@echo "To stop the server, run: make stop"
 	@echo "To check the logs, run: tail -f run.log"
 
 stop:
 	@echo "Stopping VLLM server..."
-	@pid=$$(pgrep -f "uv run -m vllm_starter.server") && \
-	if [ -z "$$pid" ]; then \
-		echo "VLLM server is not running."; \
-	else \
-		pkill -TERM -P $$pid || true && \
-		echo "VLLM server stopped."; \
-	fi
+	@cat run.pid | xargs -n1 sh -c 'pkill -TERM -P $$0 || true && kill -9 $$0 || true'
+	@echo "VLLM server stopped."
 
 log:
 	@echo "Checking VLLM server logs..."
