@@ -21,7 +21,7 @@ x-common: &common
     HF_ENDPOINT: https://hf-mirror.com
     TZ: "Asia/Shanghai"
   volumes:
-    - /opt/models:/models:rw # Please modify this to the actual model directory.
+    - ./models:/models:rw # Please modify this to the actual model directory.
     - ./config.yaml:/config.yaml:rw
 
 services:

@@ -2,7 +2,6 @@
 
 Use this template to kickstart your [vLLM](https://github.com/vllm-project/vllm) project.
 
-
 ## Prerequisites
 
 - Ubuntu 22.04
@@ -32,10 +31,21 @@ sudo systemctl start nvidia-fabricmanager
 make install
 ```
 
+## Download LLM models
+
+You can download the LLM models to your local machine using the following command:
+
+```bash
+# use huggingface models
+huggingface-cli download --local-dir=./models/Qwen2.5-0.5B Qwen/Qwen2.5-0.5B
+
+# or use modelscope models
+modelscope download --local_dir=./models/Qwen2.5-0.5B Qwen/Qwen2.5-0.5B
+```
+
 ## Usage
 
 1. Configure for the vLLM server. Please copy the `config.example.yaml` file to `config.yaml` and modify it according to your needs.
-
 
 2. Start the vLLM server:
 
@@ -53,21 +63,7 @@ This will start a development server.
 
 ## Run by Docker
 
-Before, cp `.env.example` to `.env` and modify it according to your needs.
-
-```bash
-CUDA_VISIBLE_DEVICES=0,1
-VLLM_USE_MODELSCOPE=True
-HF_ENDPOINT=https://hf-mirror.com
-TZ="Asia/Shanghai"
-SERVED_MODEL_NAME="gpt4 gpt4-o o1-mini o3-mini qwen-max qwen-plus"
-
-# Please modify the model path according to your needs
-MODEL_PATH=/models/Qwen2.5-0.5B-Instruct
-
-TENSOR_PARALLEL_SIZE=2
-GPU_MEMORY_UTILIZATION=0.9
-```
+Please copy the `config.example.yaml` file to `config.yaml` and modify it according to your needs.
 
 You can also run the vLLM server using Docker. First, pull the Docker image:
 
@@ -82,6 +78,7 @@ docker compose up -d
 ```
 
 ## Specify the CUDA available devices
+
 You can specify the CUDA devices available to the vLLM server by setting the `CUDA_VISIBLE_DEVICES` environment variable. For example, to make only GPU 0 and GPU 1 available, you can run:
 
 ```bash

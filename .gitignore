@@ -19,3 +19,5 @@ run.pid
 
 .env*
 !.env.example
+
+models/
