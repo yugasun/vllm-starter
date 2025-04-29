@@ -69,10 +69,10 @@ TENSOR_PARALLEL_SIZE=2
 GPU_MEMORY_UTILIZATION=0.9
 ```
 
-You can also run the vLLM server using Docker. First, build the Docker image:
+You can also run the vLLM server using Docker. First, pull the Docker image:
 
 ```bash
-docker compose build
+docker compose pull
 ```
 
 Then, run the Docker container:
