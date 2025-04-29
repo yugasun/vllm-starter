@@ -22,7 +22,7 @@ run:
 
 pid:
 	@echo "Getting VLLM server PID..."
-	@echo $$(ps -ef | grep "${run_cmd}" | grep -v grep | awk '{print $$2}') > run.pid
+	@echo $$(ps -ef | grep "${run_cmd}" | grep "vllm-starter/.venv/bin/python" | grep -v grep | awk '{print $$2}') > run.pid
 	@echo "VLLM server PID saved to run.pid."
 	@echo "To stop the server, run: make stop"
 	@echo "To check the logs, run: tail -f run.log"

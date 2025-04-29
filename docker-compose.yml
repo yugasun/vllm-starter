@@ -1,16 +1,30 @@
 name: vllm-starter
 
-x-vllm-common: &common
+x-common: &common
   build:
     context: .
     dockerfile: Dockerfile
-  # restart: unless-stopped
+  restart: unless-stopped
   image: vllm:latest
+  container_name: vllm-starter
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "10m"
+      max-file: "3"
+  ports:
+    - "9090:5000"
+  env_file:
+    - .env
   environment:
-    VLLM_USE_MODELSCOPE: True
-    HF_ENDPOINT: https://hf-mirror.com
-    TZ: "Asia/Shanghai"
-    SERVED_MODEL_NAME: "gpt4 gpt4-o o1-mini o3-mini qwen-max qwen-plus"
+    VLLM_USE_MODELSCOPE: ${VLLM_USE_MODELSCOPE}
+    HF_ENDPOINT: ${HF_ENDPOINT}
+    TZ: ${TZ}
+    SERVED_MODEL_NAME: ${SERVED_MODEL_NAME}
+    MODEL_PATH: ${MODEL_PATH}
+    CUDA_VISIBLE_DEVICES: ${CUDA_VISIBLE_DEVICES}
+    TENSOR_PARALLEL_SIZE: ${TENSOR_PARALLEL_SIZE}
+    GPU_MEMORY_UTILIZATION: ${GPU_MEMORY_UTILIZATION}
   volumes:
     - /opt/models:/models:rw # Please modify this to the actual model directory.
 
@@ -20,13 +34,15 @@ services:
     command:
       [
         "--model",
-        "/models/Qwen2.5-0.5B-Instruct",
+        "${MODEL_PATH}",
         "--host",
         "0.0.0.0",
         "--port",
         "5000",
         "--tensor-parallel-size",
-        "2",
+        "${TENSOR_PARALLEL_SIZE}",
+        "--gpu-memory-utilization",
+        "${GPU_MEMORY_UTILIZATION}",
         "--trust-remote-code",
       ]
     deploy:

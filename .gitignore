@@ -16,3 +16,6 @@ config.yaml
 
 *.log
 run.pid
+
+.env*
+!.env.example

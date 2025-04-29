@@ -53,6 +53,22 @@ This will start a development server.
 
 ## Run by Docker
 
+Before, cp `.env.example` to `.env` and modify it according to your needs.
+
+```bash
+CUDA_VISIBLE_DEVICES=0,1
+VLLM_USE_MODELSCOPE=True
+HF_ENDPOINT=https://hf-mirror.com
+TZ="Asia/Shanghai"
+SERVED_MODEL_NAME="gpt4 gpt4-o o1-mini o3-mini qwen-max qwen-plus"
+
+# Please modify the model path according to your needs
+MODEL_PATH=/models/Qwen2.5-0.5B-Instruct
+
+TENSOR_PARALLEL_SIZE=2
+GPU_MEMORY_UTILIZATION=0.9
+```
+
 You can also run the vLLM server using Docker. First, build the Docker image:
 
 ```bash
