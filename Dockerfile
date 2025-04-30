@@ -1,16 +1,27 @@
-# change to the version you want to use
+# filepath: /data/yugasun/vllm-starter/Dockerfile
+# Use a specific version tag for the base image
 FROM vllm/vllm-openai:v0.8.5
 
-# Install uv
-COPY --from=ghcr.io/astral-sh/uv:0.6.16 /uv /uvx /bin/
-
-# maintainer
+# Set maintainer label
 LABEL maintainer="Yuga Sun <yugasun.ai@gmail.com>"
-# e.g. install the `audio` optional dependencies
-# NOTE: Make sure the version of vLLM matches the base image!
-# RUN uv pip install --system vllm[audio]==0.8.3
 
-ADD . .
-RUN uv sync --no-cache-dir
+# Set working directory
+WORKDIR /vllm-workspace
 
+# Copy only the dependency file first
+COPY pyproject.docker.toml pyproject.toml
+# Install dependencies using uv sync for potentially faster installs
+# Use --system to install into the system Python environment
+# Use --no-cache-dir to avoid caching downloads within the layer, reducing size
+RUN uv sync --system --no-cache-dir
+# Optional: Clean up uv cache if needed, though --no-cache-dir should handle it
+# RUN rm -rf /root/.cache/uv
+
+# Copy the rest of the application code
+COPY vllm_starter/ ./vllm_starter/
+
+# Set the entrypoint for the container
 ENTRYPOINT ["uv", "run", "-m", "vllm_starter.server"]
+
+# Expose the port the application runs on (if applicable, adjust as needed)
+EXPOSE 9090

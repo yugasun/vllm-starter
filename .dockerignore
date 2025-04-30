@@ -1,0 +1,19 @@
+# .dockerignore
+Dockerfile
+docker-compose.yml
+README.md
+LICENSE
+Makefile
+config.yaml
+run.log
+run.pid
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.git
+.gitignore
+.dockerignore
+uv.lock
+.venv
+venv

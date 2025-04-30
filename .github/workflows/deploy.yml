@@ -5,9 +5,12 @@ on:
     branches:
       - main
     paths:
-      - 'vllm_starter/**'
-      - 'pyproject.toml'
-      - 'Dockerfile'
+      - "vllm_starter/**"
+      - "pyproject.docker.toml"
+      - "Dockerfile"
+      - ".github/workflows/deploy.yml"
+      - ".dockerignore"
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
