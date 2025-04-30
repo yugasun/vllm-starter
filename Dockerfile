@@ -12,7 +12,7 @@ WORKDIR /vllm-workspace
 # Use --system to install into the system Python environment
 # Use --no-cache-dir to avoid caching downloads within the layer, reducing size
 COPY ./requirements.txt ./requirements.txt
-RUN uv sync --system --no-cache-dir -r requirements.txt
+RUN uv pip install --system --no-cache-dir -r requirements.txt
 # Optional: Clean up uv cache if needed, though --no-cache-dir should handle it
 # RUN rm -rf /root/.cache/uv
 
