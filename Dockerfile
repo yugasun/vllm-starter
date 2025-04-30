@@ -11,7 +11,8 @@ WORKDIR /vllm-workspace
 # Install dependencies using uv sync for potentially faster installs
 # Use --system to install into the system Python environment
 # Use --no-cache-dir to avoid caching downloads within the layer, reducing size
-RUN uv pip install --system --no-cache-dir loguru==0.7.3 pyyaml==6.0.2 
+COPY ./requirements.txt ./requirements.txt
+RUN uv sync --system --no-cache-dir -r requirements.txt
 # Optional: Clean up uv cache if needed, though --no-cache-dir should handle it
 # RUN rm -rf /root/.cache/uv
 

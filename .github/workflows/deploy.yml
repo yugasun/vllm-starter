@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - "vllm_starter/**"
-      - "pyproject.docker.toml"
+      - "requirements.txt"
       - "Dockerfile"
       - ".github/workflows/deploy.yml"
       - ".dockerignore"
