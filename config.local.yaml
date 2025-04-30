@@ -1,0 +1,53 @@
+# server configuration
+api-key: "sk-futurefabai-2025-0407"
+# The host and port to bind the server to
+host: "0.0.0.0"
+port: 9090
+
+# model path
+model: "/data/models/Qwen2.5-Coder-32B-Instruct-AWQ"
+# model: "/models/DeepSeek-R1-Distill-Qwen-32B-AWQ"
+download-dir: "/data/models"
+
+# quantization method
+quantization: "awq"
+
+# Tensor parallelism
+# The number of GPUs to use for tensor parallelism
+tensor-parallel-size: 1
+
+# Automatic Function Calling
+# To enable this feature
+enable-auto-tool-choice: true
+# select the tool parser to use, options: hermes, llama3_json, mistral
+tool-call-parser: "hermes"
+
+# The model names to use for the severed models
+served-model-name:
+  # OpenAI models
+  - "o1-mini"
+  - "o3-mini"
+  - "gpt-4"
+  - "gpt-4o"
+  - "gpt-4o-mini"
+  - "gpt-4.1"
+  - "gpt-3.5-turbo"
+  # Qwen models
+  - "qwen-max"
+  - "qwen-plus"
+  - "qwen-turbo"
+  - "Qwen2.5-72B-Instruct-merged-4.23"
+  # Deepseek models
+  - "deepseek-v3"
+  - "deepseek-chat"
+  # Additional models for your use case
+  # ...
+
+# GPU Memory Utilization
+# The maximum GPU memory utilization for the model
+gpu-memory-utilization: 0.9
+
+# Extra arguments for vLLM serve command
+# Refer to: https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html#cli-reference
+# reasoning-parser: deepseek_r1
+# uvicorn-log-level: debug

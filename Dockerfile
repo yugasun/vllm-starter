@@ -8,11 +8,20 @@ LABEL maintainer="Yuga Sun <yugasun.ai@gmail.com>"
 # Set working directory
 WORKDIR /vllm-workspace
 
+<<<<<<< HEAD
 # Install dependencies using uv sync for potentially faster installs
 # Use --system to install into the system Python environment
 # Use --no-cache-dir to avoid caching downloads within the layer, reducing size
 COPY ./requirements.txt ./requirements.txt
 RUN uv pip install --system --no-cache-dir -r requirements.txt
+=======
+# Copy only the dependency file first
+COPY pyproject.docker.toml pyproject.toml
+# Install dependencies using uv sync for potentially faster installs
+# Use --system to install into the system Python environment
+# Use --no-cache-dir to avoid caching downloads within the layer, reducing size
+RUN uv sync --system --no-cache-dir
+>>>>>>> 08a6144 (fix: optimize dockerfile build)
 # Optional: Clean up uv cache if needed, though --no-cache-dir should handle it
 # RUN rm -rf /root/.cache/uv
 

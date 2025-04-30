@@ -6,7 +6,11 @@ on:
       - main
     paths:
       - "vllm_starter/**"
+<<<<<<< HEAD
       - "requirements.txt"
+=======
+      - "pyproject.docker.toml"
+>>>>>>> 08a6144 (fix: optimize dockerfile build)
       - "Dockerfile"
       - ".github/workflows/deploy.yml"
       - ".dockerignore"
