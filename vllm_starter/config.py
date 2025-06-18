@@ -1,9 +1,15 @@
+import os
 from os.path import abspath, dirname, join
 from yaml import load, Loader
 from types import SimpleNamespace
 
 current_dir = dirname(abspath(__file__))
 config_path = join(current_dir, "../config.yaml")
+config_local_path = join(current_dir, "../config.local.yaml")
+
+# if local config exists, use it
+if os.path.exists(config_local_path):
+    config_path = config_local_path
 
 # Load settings as a dictionary first
 settings_dict = load(open(config_path, "r"), Loader=Loader)

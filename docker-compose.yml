@@ -16,7 +16,7 @@ x-common: &common
   env_file:
     - .env
   environment:
-    CUDA_VISIBLE_DEVICES: 0,1
+    CUDA_VISIBLE_DEVICES: 0           # Specify the GPU to use, e.g., 0 for the first GPU.
     VLLM_USE_MODELSCOPE: True
     HF_ENDPOINT: https://hf-mirror.com
     TZ: "Asia/Shanghai"
@@ -34,5 +34,5 @@ services:
         reservations:
           devices:
             - driver: nvidia
-              count: 2
+              count: 1 # Use 1 for a single GPU, or 'all' for all available GPUs.
               capabilities: [gpu]
